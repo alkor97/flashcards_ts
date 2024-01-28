@@ -1,1 +1,3 @@
-# flashcards_ts
+# Flashcards
+
+An online implementation of flashcards.
