@@ -33,8 +33,6 @@ model		el modelo
 modelka		la modelo
 pacjent		el paciente
 pacjentka	la paciente
-młody chłopak	el joven
-młoda dziewczyna	la joven
 uczeń		el estudiante
 uczennica	la estudiante
 dziennikarz		el periodista
@@ -70,26 +68,13 @@ kuzynka		la prima
 pianista	el pianista
 pianistka	la pianista
 kot			el gato
-koty		los gatos
-dziewczyny	las chicas
-chłopcy		los chicos
-autobusy	los autobuses
 okulary		las gafas
 pies		el perro
-psy			los perros
-przyjaciółki	las amigas
 kawa		el café
-kawy		los cafés
 karta dań	el menú
-karty dań	los menús
 drzewo		el árbol
-drzewa		los árboles
-kobiety		las mujeres
 piosenka	la canción
-piosenki	las canciones
-królowie	los reyes
 dzik		el jabalí
-dziki		los jabalíes
 ryba		el pez
 ryby		los peces
 ryba (danie)	el pescado
@@ -104,29 +89,20 @@ ludzie		la gente
 nożyczki	las tijeras
 dżinsy		los vaqueros
 kino		el cine
-kina		los cines
 zegar		el reloj
-zegary		los relojes
-książki		los libros
 film		la pelicula
-filmy		las peliculas
 kamizelka	la camiseta
-kamizelki	las camisetas
 szklanka	el vaso
-szklanki	los vasos
 kwiat		la flor
-kwiaty		las flores
 uczniowie	los estudiantes
 uczennice	las estudiantes
 komputer	el ordenador
-komputery	los ordenadores
 zeszyt		el cuaderno
 długopis	el boli
 ołówek		la lápiz
 ołówki		las lapices
 garaż		el garaje
 hotel		el hotel
-hotele		los hoteles
 komórka		el móvil
 karta		la tarjeta
 leżak		la tumbona
@@ -150,56 +126,53 @@ wakacje		las vacaciones
 kurtka		la chaqueta
 walizka		la maleta
 restauracja		el restaurante
-epoka		la época
 plecak		la mochila
 sprawa		el asunto
 but			el zapato
-aula		la aula
 firma		la empresa
 plan		el plan
 samolot		el avión
 torebka		el bolso
-ten         este
-ta          esta
-ci          estos
-te          estas
-ten (dalszy)    ese
-ta (dalsza)     esa
-ci (dalsi)      esos
-te (dalsze)     esas
-tamten      aquel
-tamta       aquella
-tamci       aquellos
-tamte       aquellas
-mój         mi
-moja        mi
-twój        tu
-twoja       tu
-jego        su
-jej         su
-nasz        nuestro
-nasza       nuestra
-wasz        vuestro
-wasza       vuestra
-ich         su
+ten chłopak     este chico
+ta dziewczyna   esta chica
+ci chłopcy      estos chicos
+te dziewczyny   estas chicas
+ten chłopak (2)    ese chico
+ta dziewczyna (2)  esa chica
+ci chłopcy (2)     esos chicos
+te dziewczyny (2)  esas chicas
+tamten chłopak      aquel chico
+tamta dziewczyna    aquella chica
+tamci chłopcy       aquellos chicos
+tamte dziewczyny    aquellas chicas
+mój kot         mi gato
+moja krowa      mi vaca
+twój kot        tu gato
+twoja krowa     tu vaca
+jego kot        su gato
+jej krowa       su vaca
+nasz kot        nuestro gato
+nasza krowa     nuestra vaca
+wasz kot        vuestro gato
+wasza krowa     vuestra vaca
+ich kot         su gato
 brat        el hermano
 siostra     la hermana
 ubezpieczenie   el seguro
 impreza     la fiesta
 wino        el vino
 decyzja     la decisión
-moi         mis
-moje        mis
-twoi        tus
-twoje       tus
-kielich     la copa
+moi przyjaciele     mis amigos
+moje przyjaciółki   mis amigas
+twoi przyjaciele    tus amigos
+twoje przyjaciółki  tus amigas
+puchar      la copa
 wuj         el tio
 ciotka      la tia
 czas        el tiempo
 bilet       el billete
 dług        la deuda
 życie       la vida
-fantasia    la fantasia
 łóżko       la cama
 kolega      el compañero
 syn         el hijo
@@ -209,3 +182,77 @@ rodzina     la familia
 narzeczony  el novio
 narzeczona  la novia
 ręka        la mano
+szyja       el cuello
+portfel     el cartera
+spojrzenie  la mirada
+danie       el plato
+rocznica    el anniversario
+otwarty     abierto
+nudny       aburrido
+aktywny     activo
+wysoki      alto
+szeroki     ancho
+wąski       estrecho
+stary       antiguo
+nowy        nuevo
+niski       bajo
+tani        barato
+drogi       caro
+ładny       bonito
+dobry       bueno
+zły         malo
+zmęczony    cansado
+wygodny     cómodo
+krótki      corto
+długi       largo
+poprawny    correcto
+zabawny     divertido
+sławny      famoso
+ulubiony    favorito
+chudy       flaco
+gruby       gordo
+powolny     lento
+nowoczesny  moderno
+nerwowy     nervioso
+niebezpieczny   peligroso
+mały        pequeño
+prywatny    privado
+szybki      rápido
+poważny     serio
+sympatyczny     simpático
+spokojny    tranquilo
+przystojny  guapo
+przyjemny   agradable
+wesoły      alegre
+miły        amable
+sztuczny    artificial
+gorący      caliente
+okrutny     cruel
+słaby       débil
+trudny      dificil
+różny       diferente
+słodki      dulce
+elegancki   elegante
+emocjonujący    emocionante
+wyjątkowy   especial
+łatwy       fácil
+fatalny     fatal
+szczęśliwy  feliz
+silny       fuerte
+fajny       guay
+duży        grande
+straszny    horrible
+ważny       importante
+niewiarygodny   increible
+inteligentny    inteligente
+interesujący    interesante
+młody       joven
+popularny   popular
+możliwy     posible
+odpowiedzialny  responsable
+smutny      triste
+krowa       la vaca
+koza        la cabra
+niegrzeczny     travieso
+chory       enfermo
+blond       rubio
