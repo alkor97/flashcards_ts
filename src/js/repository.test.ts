@@ -72,20 +72,27 @@ describe("repository tests", () => {
       ["telefon", "el teléfono"],
       ["bank", "el banco"],
       ["lampa", "la lámpara"],
+      ["bank", "el bancoco"],
+      ["bank", "el bancococo"],
+      ["kot", "el gato"],
     ];
+    const batchSize = 3;
     const repo = new Repository(data);
     const session = repo.getMultipleAnswersSession();
 
-    const queries = new Set<string>();
-    [...data.keys()].forEach(() => {
-      const result = session.next(3);
-      queries.add(result.query!);
+    const queries: string[] = [];
+    for (let i = 0; i < data.length; ++i) {
+      const result = session.next(batchSize, 0);
+      expect(result.validIndex).not.toBe(-1);
+      queries.push(result.query!);
       result.selectAnswer(result.validIndex);
-    });
-    const expected = new Set(data.map((e) => e[0])); // all keys
+    }
+    expect(session.next(batchSize).validIndex).toBe(-1);
+
+    const expected = data.map((e) => e[0]); // all keys
     expect(queries).toStrictEqual(expected);
   });
-  test("exclude entries with the same key", () => {
+  test("exclude entries with the same key in single response", () => {
     const data = [
       ["chłopak", "el nino"],
       ["chłopak", "el chico"],

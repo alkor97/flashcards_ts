@@ -74,8 +74,8 @@ class Session {
     };
   }
 
-  removeQuery(key: string) {
-    const dataIndex = this.data.findIndex((e) => e.key === key);
+  removeQuery(key: string, value: string) {
+    const dataIndex = this.data.findIndex((e) => e.key === key && e.value === value);
     this.dataIndices.splice(this.dataIndices.indexOf(dataIndex), 1);
   }
 
@@ -87,7 +87,7 @@ class Session {
   }
 }
 
-interface Task {
+export interface Task {
   query: string | null;
   answers: string[];
   validIndex: number;
@@ -131,7 +131,7 @@ export class MultipleAnswersSession extends Session {
       validIndex: validIndex,
       selectAnswer: (answerIndex) => {
         if (answerIndex === validIndex) {
-          this.removeQuery(entry.key);
+          this.removeQuery(entry.key, allAnswers[answerIndex]);
         }
       },
     };
