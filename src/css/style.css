@@ -5,6 +5,7 @@ body {
 
 table, progress {
   width: max(30%, min(500px, 100%));
+  font-size: xx-large;
 }
 
 button {
