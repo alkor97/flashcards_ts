@@ -20,38 +20,71 @@ setProgress(0, 100);
 function fillForm(session: MultipleAnswersSession) {
   const invalidClass = "invalid";
   const validClass = "valid";
-  const afterValidTimeout = 500;
+  const afterValidTimeout = 2000;
   const answers = document.querySelectorAll<HTMLElement>(".answer");
-  const content = session.next(answers.length);
+  for (let answer of answers) {
+    const tr = answer.parentElement?.parentElement;
+    if (tr) {
+      tr.style.display = "";
+    }
+  }
+  const task = session.next(answers.length);
 
-  if (content.validIndex === -1) {
+  if (task.validIndex === -1) {
     // show dialog upon session end
     dialog.showModal();
     return;
   }
 
-  document.getElementById("query")!.textContent = content.query;
-  for (let i = 0; i < answers.length; ++i) {
-    const answer = answers[i];
-    answer.style.display = i < content.answers.length ? "block" : "none";
-    answer.innerText = content.answers[i];
+  function onValidChosen(element: HTMLElement) {
+    element.classList.remove(invalidClass);
+    element.classList.add(validClass);
+  }
 
-    if (i === content.validIndex) {
+  function onInvalidChosen(element: HTMLElement) {
+    element.classList.add(invalidClass);
+    element.classList.remove(validClass);
+  }
+
+  function clearValidInvalidClasses(element: HTMLElement) {
+    element.classList.remove(invalidClass);
+    element.classList.remove(validClass);
+  }
+
+  function hideRow(element: HTMLElement) {
+    const style = element.parentElement?.parentElement?.style;
+    if (style) {
+      style.display = "none";
+    }
+  }
+  
+  document.getElementById("query")!.textContent = task.query;
+  for (let i = 0; i < answers.length; ++i) {
+    const answer: HTMLElement = answers[i];
+    answer.style.display = i < task.answers.length ? "block" : "none";
+    answer.innerText = task.answers[i];
+
+    if (i === task.validIndex) {
       answer.addEventListener(
         "click",
         () => {
-          content.selectAnswer(i);
+          task.selectAnswer(i);
+          for (let j = 0; j < answers.length; ++j) {
+            if (j != i) {
+              hideRow(answers[j]);
+            } else {
+              clearValidInvalidClasses(answers[j]);
+            }
+          }
           const { total, completed } = session.getStatistics();
           setProgress(completed, total);
           setTimeout(() => fillForm(session), afterValidTimeout);
         },
         { once: true }
       );
-      answer.classList.remove(invalidClass);
-      answer.classList.add(validClass);
+      onValidChosen(answer);
     } else {
-      answer.classList.add(invalidClass);
-      answer.classList.remove(validClass);
+      onInvalidChosen(answer);
     }
   }
 }
