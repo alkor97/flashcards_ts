@@ -11,32 +11,28 @@ interface Replacement {
 }
 
 function createReplacements(r: Rule): Replacement[] {
-  const result: Replacement[] = [];
-  for (let i = 0; i < Math.min(r.from.length, r.to.length); ++i) {
+  const minLength = Math.min(r.from.length, r.to.length);
+  return Array.from({ length: minLength }, (_, i) => {
     const regex = new RegExp(r.from.charAt(i), "g");
-    const repl = r.to.charAt(i);
-    result.push({ regex, value: repl });
-  }
-  return result;
+    const value = r.to.charAt(i);
+    return { regex, value };
+  });
 }
 
-const spanishReplacements: Replacement[] = createReplacements({
+const replacementsMap = new Map<string, Replacement[]>();
+replacementsMap.set("es", createReplacements({
   from: "áéíóúýÁÉÍÓÚÝñÑ",
   to: "aeiouyAEIOUYnN",
-});
+}));
 
 function commonize(text: string, replacements: Replacement[]): string {
-  for (const repl of replacements) {
-    text = text.replace(repl.regex, repl.value);
-  }
-  return text;
+  const combinedRegex = new RegExp(replacements.map(r => r.regex.source).join('|'), 'g');
+  const replacementDict = Object.fromEntries(replacements.map(r => [r.regex.source, r.value]));
+  return text.replace(combinedRegex, match => replacementDict[match]);
 }
 
 function getReplacements(locale?: string): Replacement[] {
-  if ((locale || "").toLowerCase() === "es") {
-    return spanishReplacements;
-  }
-  return [];
+  return replacementsMap.get((locale || "").toLowerCase()) || [];
 }
 
 export function isEqual(a: string, b: string, locale?: string): boolean {

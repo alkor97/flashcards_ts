@@ -5,23 +5,11 @@ function randomInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
 
-function shuffle(array: any[]) {
-  let currentIndex = array.length;
-  let randomIndex;
-
-  // While there remain elements to shuffle
-  while (currentIndex > 0) {
-    // Pick a remaining element
-    randomIndex = randomInt(currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
+function shuffle(array: any[]): any[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = randomInt(i + 1);
+    [array[i], array[j]] = [array[j], array[i]];
   }
-
   return array;
 }
 
@@ -38,10 +26,10 @@ interface Statistics {
 type Selector = string | number | undefined;
 
 class Session {
-  data: Entry[];
+  data: readonly Entry[];
   dataIndices: number[];
 
-  constructor(data: Entry[]) {
+  constructor(data: readonly Entry[]) {
     this.data = data;
     this.dataIndices = [...this.data.keys()];
   }
@@ -75,7 +63,9 @@ class Session {
   }
 
   removeQuery(key: string, value: string) {
-    const dataIndex = this.data.findIndex((e) => e.key === key && e.value === value);
+    const dataIndex = this.data.findIndex(
+      (e) => e.key === key && e.value === value
+    );
     this.dataIndices.splice(this.dataIndices.indexOf(dataIndex), 1);
   }
 

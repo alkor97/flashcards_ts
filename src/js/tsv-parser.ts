@@ -1,4 +1,4 @@
-export function parseTsv(content: string): string[][] {
+export function parseTsv(content: string): readonly string[][] {
   const result: string[][] = [];
   const lines = content.split(/\n/);
   for (const rawLine of lines) {
@@ -16,5 +16,5 @@ export function parseTsv(content: string): string[][] {
     }
     result.push(entries);
   }
-  return result;
+  return Object.freeze(result);
 }

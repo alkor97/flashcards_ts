@@ -14,6 +14,7 @@ describe("tab-separated values parsing", () => {
   });
   test("comments are ignored", () => {
     expect(parseTsv("# a comment")).toStrictEqual([]);
+    expect(parseTsv("a\tb  # a comment")).toStrictEqual([["a", "b"]]);
   });
   test("a word pairs are parsed correctly", () => {
     expect(

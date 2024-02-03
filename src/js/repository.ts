@@ -13,10 +13,10 @@ function toEntry(pair: string[]): Entry {
 }
 
 export class Repository {
-  data: Entry[];
+  data: readonly Entry[];
 
-  constructor(input: string[][]) {
-    this.data = input.map(toEntry);
+  constructor(input: readonly string[][]) {
+    this.data = Object.freeze(input.map(toEntry));
   }
 
   getMultipleAnswersSession(): MultipleAnswersSession {
