@@ -57,7 +57,7 @@ function fillForm(session: MultipleAnswersSession) {
       style.display = "none";
     }
   }
-  
+
   document.getElementById("query")!.textContent = task.query;
   for (let i = 0; i < answers.length; ++i) {
     const answer: HTMLElement = answers[i];
@@ -89,8 +89,40 @@ function fillForm(session: MultipleAnswersSession) {
   }
 }
 
+function findParentOfType(
+  element: Element | null | undefined,
+  type: string
+): Element | null | undefined {
+  for (
+    ;
+    element &&
+    element.parentElement &&
+    element.nodeName.toUpperCase() !== type.toUpperCase();
+    element = element.parentElement
+  ) {
+    // just iterate
+  }
+  return element;
+}
+
+function fillTableRows() {
+  const row = findParentOfType(document.querySelector(".answer"), "TR");
+  const rowContainer = row?.parentElement;
+  const body = document.body;
+  if (row && rowContainer && body) {
+    let previousHeight = body.clientHeight;
+    let step = 0;
+    while (body.clientHeight + step < window.innerHeight) {
+      rowContainer.appendChild(row.cloneNode(true));
+      step = Math.max(step, body.clientHeight - previousHeight);
+      previousHeight = body.clientHeight;
+    }
+  }
+}
+
 let session: MultipleAnswersSession;
 async function start() {
+  fillTableRows();
   const result = await fetch("./pol-esp.tsv");
   const text = await result.text();
   const parsed = parseTsv(text);
