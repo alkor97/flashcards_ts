@@ -1,11 +1,11 @@
 import { MultipleAnswersSession } from "./session";
 
-export interface Entry {
-  key: string;
-  value: string;
+export interface DataEntry {
+  readonly key: string;
+  readonly value: string;
 }
 
-function toEntry(pair: string[]): Entry {
+function toDataEntry(pair: string[]): DataEntry {
   return {
     key: pair[0],
     value: pair[1],
@@ -13,10 +13,10 @@ function toEntry(pair: string[]): Entry {
 }
 
 export class Repository {
-  data: readonly Entry[];
+  data: readonly DataEntry[];
 
   constructor(input: readonly string[][]) {
-    this.data = Object.freeze(input.map(toEntry));
+    this.data = Object.freeze(input.map(toDataEntry));
   }
 
   getMultipleAnswersSession(): MultipleAnswersSession {

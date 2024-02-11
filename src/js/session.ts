@@ -1,5 +1,5 @@
 import { distance } from "./comparators";
-import { Entry } from "./repository";
+import { DataEntry } from "./repository";
 
 function randomInt(max: number): number {
   return Math.floor(Math.random() * max);
@@ -14,8 +14,8 @@ function shuffle(array: any[]): any[] {
 }
 
 interface Query {
-  entry: Entry | null;
-  index: number;
+  readonly entry: DataEntry | null;
+  readonly index: number;
 }
 
 interface Statistics {
@@ -26,15 +26,15 @@ interface Statistics {
 type Selector = string | number | undefined;
 
 class Session {
-  data: readonly Entry[];
-  dataIndices: number[];
+  protected data: readonly DataEntry[];
+  private dataIndices: number[];
 
-  constructor(data: readonly Entry[]) {
+  constructor(data: readonly DataEntry[]) {
     this.data = data;
     this.dataIndices = [...this.data.keys()];
   }
 
-  getDataIndex(selector: Selector): number {
+  private getDataIndex(selector: Selector): number {
     if (typeof selector === "string") {
       return this.data.findIndex((e) => e.key === selector);
     }
@@ -46,7 +46,7 @@ class Session {
       : this.getDataIndex(0);
   }
 
-  selectQuery(selector: Selector): Query {
+  selectQuery(selector?: Selector): Query {
     if (selector === undefined && this.dataIndices.length === 0) {
       return {
         entry: null,
