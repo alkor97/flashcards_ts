@@ -1,4 +1,4 @@
-import { parseTsv } from "./tsv-parser";
+import { parseTsv } from "./parser";
 import fs from "fs";
 
 describe("tab-separated values parsing", () => {

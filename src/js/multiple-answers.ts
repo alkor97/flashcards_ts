@@ -1,6 +1,6 @@
 import { Repository } from "./repository";
 import { MultipleAnswersSession } from "./session";
-import { parseTsv } from "./tsv-parser";
+import { parseTsv } from "./parser";
 
 const dialog = document.querySelector("dialog")!;
 document.querySelector("dialog button")?.addEventListener("click", () => {
