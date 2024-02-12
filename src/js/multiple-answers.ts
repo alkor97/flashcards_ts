@@ -1,5 +1,8 @@
-import { Repository } from "./repository";
-import { MultipleAnswersSession } from "./session";
+import { toDataEntry } from "./repository";
+import {
+  selectMultipleAnswers,
+  MultipleAnswersSelection,
+} from "./select-multiple-answers";
 import { parseTsv } from "./parser";
 
 const dialog = document.querySelector("dialog")!;
@@ -17,7 +20,7 @@ function setProgress(value: number, max: number) {
 }
 setProgress(0, 100);
 
-function fillForm(session: MultipleAnswersSession) {
+function fillForm(generator: Generator<MultipleAnswersSelection>) {
   const invalidClass = "invalid";
   const validClass = "valid";
   const afterValidTimeout = 2000;
@@ -28,9 +31,9 @@ function fillForm(session: MultipleAnswersSession) {
       tr.style.display = "";
     }
   }
-  const task = session.next(answers.length);
+  const it = generator.next();
 
-  if (task.validIndex === -1) {
+  if (it.done) {
     // show dialog upon session end
     dialog.showModal();
     return;
@@ -58,6 +61,7 @@ function fillForm(session: MultipleAnswersSession) {
     }
   }
 
+  const task = it.value;
   document.getElementById("query")!.textContent = task.query;
   for (let i = 0; i < answers.length; ++i) {
     const answer: HTMLElement = answers[i];
@@ -76,9 +80,9 @@ function fillForm(session: MultipleAnswersSession) {
               clearValidInvalidClasses(answers[j]);
             }
           }
-          const { total, completed } = session.getStatistics();
+          const { total, completed } = task.statistics;
           setProgress(completed, total);
-          setTimeout(() => fillForm(session), afterValidTimeout);
+          setTimeout(() => fillForm(generator), afterValidTimeout);
         },
         { once: true }
       );
@@ -105,7 +109,7 @@ function findParentOfType(
   return element;
 }
 
-function fillTableRows() {
+function prepareTableRows(): number {
   const row = findParentOfType(document.querySelector(".answer"), "TR");
   const rowContainer = row?.parentElement;
   const body = document.body;
@@ -118,16 +122,13 @@ function fillTableRows() {
       previousHeight = body.clientHeight;
     }
   }
+  return document.querySelectorAll<HTMLElement>(".answer").length;
 }
 
-let session: MultipleAnswersSession;
-async function start() {
-  fillTableRows();
+(async () => {
+  const rowCount = prepareTableRows();
   const result = await fetch("./pol-esp.tsv");
   const text = await result.text();
-  const parsed = parseTsv(text);
-  const repo = new Repository(parsed);
-  session = repo.getMultipleAnswersSession();
-  fillForm(session);
-}
-start();
+  const data = parseTsv(text).map(toDataEntry);
+  fillForm(selectMultipleAnswers(rowCount, data));
+})();
