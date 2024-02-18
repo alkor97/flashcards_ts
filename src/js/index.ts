@@ -37,7 +37,7 @@ import { toDataEntry } from "./repository";
         )
         .join("&");
       const newUrl = `${select.value}.html?${query}`;
-      window.location.replace(newUrl);
+      window.location.href = newUrl;
     });
   }
 })();
