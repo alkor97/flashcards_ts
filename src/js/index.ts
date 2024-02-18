@@ -13,11 +13,15 @@ import { toDataEntry } from "./repository";
       index > 0 ? entry !== array[index + 1] : true
     );
 
+  const params = new URLSearchParams(window.location.search);
+    const selectedTags = params.getAll("tags") ?? [];
+
   const container = document.querySelector("div");
   allTags.forEach((tag, index) => {
     const id = `checkbox_${index}`;
+    const checked = selectedTags.includes(tag) ? "checked" : "";
     const elements = `
-        <input id="${id}" type="checkbox" name="tags" value="${tag}" checked="checked">
+        <input id="${id}" type="checkbox" name="tags" value="${tag}" ${checked}>
         <label for="${id}">${tag}</input>
     `;
 

@@ -64,3 +64,8 @@ input[type="checkbox"] {
 ::backdrop {
   opacity: 0.75;
 }
+
+dialog {
+  background-color: #00204a;
+  color: #fdb44b;
+}

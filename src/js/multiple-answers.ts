@@ -29,7 +29,11 @@ function fillForm(generator: Generator<MultipleAnswersSelection>) {
   const it = generator.next();
 
   if (it.done) {
-    window.location.href = "index.html";
+    setTimeout(
+      () => (window.location.href = `index.html${window.location.search}`),
+      afterValidTimeout
+    );
+    document.querySelector("dialog")!.showModal();
     return;
   }
 
