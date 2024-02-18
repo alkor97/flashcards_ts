@@ -1,10 +1,36 @@
+/*
+colors:
+  - #00204a
+  - #005792
+  - #00bbf0
+  - #fdb44b
+*/
+
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #00204a;
+  color: #fdb44b;
   font-size: xx-large;
+  width: max(30%, min(500px, 100%));
 }
 
-table, progress {
-  width: max(30%, min(500px, 100%));
+select option:active {
+  background-color: red;
+}
+
+progress {
+  width: 100%;
+}
+
+select {
+  font-size: xx-large;
+  width: 100%;
+  background-color: #00204a;
+  color: #fdb44b;
+}
+
+table {
+  width: 100%;
   font-size: xx-large;
 }
 
@@ -14,19 +40,29 @@ button {
   border: none;
   border-radius: 15px;
   transition: 1s;
+  width: 100%;
+  background-color: #005792;
+  color: #fdb44b;
 }
 
-.query, .answer {
+input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+  accent-color: #005792;
+}
+
+.query,
+.answer {
   width: 100%;
 }
 
 .invalid:active {
-  background-color: #ff0000;
+  background-color: crimson;
   transition: 0s;
 }
 
 .valid:active {
-  background-color: #00ff00;
+  background-color: darkgreen;
   transition: 0s;
 }
 

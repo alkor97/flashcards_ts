@@ -1,21 +1,16 @@
-import { toDataEntry } from "./repository";
+import { toDataEntry, withTagsIncrementally } from "./repository";
 import {
   selectMultipleAnswers,
   MultipleAnswersSelection,
 } from "./select-multiple-answers";
 import { parseTsv } from "./parser";
 
-const dialog = document.querySelector("dialog")!;
-document.querySelector("dialog button")?.addEventListener("click", () => {
-  window.location.reload();
-});
-
 function setProgress(value: number, max: number) {
   const progress = document.querySelector("progress");
   if (progress && value >= 0 && max > 0) {
-    progress.value = value;
-    progress.max = max;
-    progress.innerText = `${Math.floor((100 * value) / max)}%`;
+    const percentage = Math.round((100 * value) / max);
+    progress.value = percentage;
+    progress.max = 100;
   }
 }
 setProgress(0, 100);
@@ -34,8 +29,7 @@ function fillForm(generator: Generator<MultipleAnswersSelection>) {
   const it = generator.next();
 
   if (it.done) {
-    // show dialog upon session end
-    dialog.showModal();
+    window.location.replace("index.html");
     return;
   }
 
@@ -129,6 +123,9 @@ function prepareTableRows(): number {
   const rowCount = prepareTableRows();
   const result = await fetch("./pol-esp.tsv");
   const text = await result.text();
-  const data = parseTsv(text).map(toDataEntry);
+  const params = new URLSearchParams(window.location.search);
+  const data = parseTsv(text)
+    .map(toDataEntry)
+    .filter(withTagsIncrementally(params.getAll("tags")));
   fillForm(selectMultipleAnswers(rowCount, data));
 })();

@@ -29,6 +29,19 @@ describe("tab-separated values parsing", () => {
       ["kurtka", "la chaqueta"],
     ]);
   });
+  test("tags are parsed as well", () => {
+    expect(
+      parseTsv(`
+      dom    la casa   rzeczownik  liczba pojedyncza
+      dobry  bueno     przymiotnik
+      mal    zły
+    `)
+    ).toStrictEqual([
+      ["dom", "la casa", "rzeczownik", "liczba pojedyncza"],
+      ["dobry", "bueno", "przymiotnik"],
+      ["mal", "zły"],
+    ]);
+  });
   test("parse production data", () => {
     const data = fs.readFileSync("src/data/pol-esp.tsv");
     expect(data).toBeTruthy();

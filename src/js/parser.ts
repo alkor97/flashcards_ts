@@ -11,7 +11,7 @@ export function parseTsv(content: string): readonly string[][] {
       continue;
     }
     const entries = line.split(/\t+|  +/);
-    if (!entries || entries.length !== 2) {
+    if (!entries || entries.length < 2) {
       throw new Error(`Error while parsing line '${line}'!`);
     }
     result.push(entries);
