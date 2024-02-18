@@ -11,15 +11,10 @@ body {
   background-color: #00204a;
   color: #fdb44b;
   font-size: xx-large;
+}
+
+.use-width {
   width: max(30%, min(500px, 100%));
-}
-
-select option:active {
-  background-color: red;
-}
-
-progress {
-  width: 100%;
 }
 
 select {
