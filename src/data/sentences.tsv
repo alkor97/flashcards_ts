@@ -1,0 +1,76 @@
+
+# personal pronouns
+ja          yo        personal  pronoun  1st  singular
+ty          tu        personal  pronoun  2nd  singular
+on          el        personal  pronoun  3rd  singular  masculine
+ona         ella      personal  pronoun  3rd  singular  feminine
+pan         usted     personal  pronoun  3rd  singular  masculine
+pani        usted     personal  pronoun  3rd  singular  feminine
+my          nosotros  personal  pronoun  1st  plural    masculine
+my          nosotras  personal  pronoun  1st  plural    masculine
+wy          vosotros  personal  pronoun  2nd  plural    masculine
+wy          vosotras  personal  pronoun  2nd  plural    feminine
+oni         ellos     personal  pronoun  3rd  plural    masculine
+one         ellas     personal  pronoun  3rd  plural    feminine
+państwo     ustedes   personal  pronoun  3rd  plural
+
+# possessive pronouns
+mój     mi        possessive  pronoun  1st  singular  masculine
+moja    mi        possessive  pronoun  1st  singular  feminine
+twój    tu        possessive  pronoun  2nd  singular  masculine
+twoja   tu        possessive  pronoun  2nd  singular  feminine
+jego    su        possessive  pronoun  3rd  singular  masculine
+jej     su        possessive  pronoun  3rd  singular  feminine
+nasz    nuestro   possessive  pronoun  1st  singular  masculine
+nasza   nuestra   possessive  pronoun  1st  singular  feminine
+wasz    vuestro   possessive  pronoun  2nd  singular  masculine
+wasza   vuestra   possessive  pronoun  2nd  singular  feminine
+ich     su        possessive  pronoun  3rd  singular
+
+# plural possessive pronouns
+moi     mis       possessive  pronoun  1st  plural  masculine
+moje    mis       possessive  pronoun  1st  plural  feminine
+twoi    tus       possessive  pronoun  2nd  plural  masculine
+twoje   tus       possessive  pronoun  2nd  plural  feminine
+jego    sus       possessive  pronoun  3rd  plural  masculine
+jej     sus       possessive  pronoun  3rd  plural  feminine
+nasi    nuestros  possessive  pronoun  1st  plural  masculine
+nasze   nuestras  possessive  pronoun  1st  plural  feminine
+wasi    vuestros  possessive  pronoun  2nd  plural  masculine
+wasze   vuestras  possessive  pronoun  2nd  plural  feminine
+ich     sus       possessive  pronoun  3rd  plural
+
+# verb
+jestem      soy    verb  1st  singular
+jesteś      eres   verb  2nd  singular
+jest        es     verb  3rd  singular
+jesteśmy    somos  verb  1st  plural
+jesteście   sois   verb  2nd  plural
+są          son    verb  3rd  plural
+
+# article
+-   el      article  singular  masculine
+-   la      article  singular  feminine
+-   los     article  plural    masculine
+-   las     article  plural    feminine
+
+# nouns
+przyjaciel          amigo           noun  singular  masculine
+przyjaciółka        amiga           noun  singular  feminine
+przyjaciele         amigos          noun  plural    masculine
+przyjaciółki        amigas          noun  plural    feminine
+Karol               Carlos          noun  singular  masculine   proper
+Maria               Maria           noun  singular  masculine   proper
+Karol i Jan         Carlos y Juan   noun  plural    masculine   proper
+Maria i Agnieszka   Maria y Inez    noun  plural    feminine    proper
+Jan i Maria         Juan y Maria    noun  plural                proper
+
+# adjectives
+przystojny  guapo       adjective   singular    masculine
+przystojna  guapa       adjective   singular    feminine
+przystojni  guapos      adjective   plural      masculine
+przystojne  guapas      adjective   plural      feminine
+wysoki      alto        adjective   singular    masculine
+wysoka      alta        adjective   singular    feminine
+wysocy      altos       adjective   plural      masculine
+wysokie     altas       adjective   plural      feminine
