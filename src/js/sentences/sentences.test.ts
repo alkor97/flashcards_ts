@@ -32,7 +32,7 @@ describe("verify sentences parsing", () => {
 
     for (let i = 0; i < 10; ++i) {
       const sentence = generateRandomSentence(repo);
-      console.log(sentence);
+      fs.appendFileSync("example.txt", sentence + "\n");
     }
   });
 });

@@ -63,7 +63,7 @@ Karol               Carlos          noun  singular  masculine   proper
 Maria               Maria           noun  singular  masculine   proper
 Karol i Jan         Carlos y Juan   noun  plural    masculine   proper
 Maria i Agnieszka   Maria y Inez    noun  plural    feminine    proper
-Jan i Maria         Juan y Maria    noun  plural                proper
+Jan i Maria         Juan y Maria    noun  plural    masculine   proper  # mixed groups are masculine
 
 # adjectives
 przystojny  guapo       adjective   singular    masculine

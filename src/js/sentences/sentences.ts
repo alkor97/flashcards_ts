@@ -1,5 +1,5 @@
 import { DataEntry } from "../repository";
-import { randomInt } from "../random";
+import { randomFrom } from "../random";
 
 interface GPerson {
   person: number;
@@ -21,7 +21,9 @@ interface Base {
   value: string;
 }
 
-interface Subject extends Base, GNumber, GPerson, GGender {}
+interface Subject extends Base, GNumber, GPerson, GGender {
+  type: "subject";
+}
 interface SubjectMatchable extends Base {
   matches: (subject: Subject) => boolean;
 }
@@ -86,7 +88,10 @@ function parsePersonAndGender(entry: DataEntry): NumberAndGender {
     gender: parseGender(entry),
     number: parseNumber(entry),
     matches(subject) {
-      return this.gender === subject.gender && this.number === subject.number;
+      return (
+        (!subject.gender || this.gender === subject.gender) &&
+        this.number === subject.number
+      );
     },
   };
 }
@@ -160,8 +165,8 @@ export function parseGrammarElements(entries: DataEntry[]): Repository {
           number: parseNumber(entry),
           matches(subject) {
             return (
+              (!subject.gender || this.gender === subject.gender) &&
               this.person === subject.person &&
-              this.gender === subject.gender &&
               this.number === subject.number
             );
           },
@@ -174,26 +179,29 @@ export function parseGrammarElements(entries: DataEntry[]): Repository {
   return repo;
 }
 
-function randomFrom<T>(array: T[]): T {
-  return array[randomInt(array.length)];
+function subjecFrom<T extends NumberAndGenderAndPerson>(value: T): Subject {
+  return {
+    ...value,
+    type: "subject",
+  };
 }
-
-// function randomSubject(repo: Repository): Subject {
-//   const source = randomFrom([repo.nouns, repo.pronouns]);
-// }
 
 // proper noun (eg. Juan)
 function subjectFromProperNoun(repo: Repository): Subject {
-  return randomFrom(repo.nouns.filter((v) => v.subType === "proper"));
+  return subjecFrom(
+    randomFrom(repo.nouns.filter((v) => v.subType === "proper"))
+  );
 }
 
 function subjectFromNounWithPrefix(
   repo: Repository,
   prefixes: SubjectMatchable[]
 ): Subject {
-  const noun = randomFrom(repo.nouns.filter((v) => v.subType !== "proper"));
-  const prefix = prefixes.find((v) => v.matches(noun));
-  const [key, value] = [prefix, noun]
+  const subject = subjecFrom(
+    randomFrom(repo.nouns.filter((v) => v.subType !== "proper"))
+  );
+  const prefix = prefixes.find((v) => v.matches(subject));
+  const [key, value] = [prefix, subject]
     // skip empty
     .filter((v) => !!v)
     // extract key and value
@@ -209,9 +217,10 @@ function subjectFromNounWithPrefix(
   return {
     key: key,
     value: value,
-    gender: noun.gender,
-    number: noun.number,
-    person: noun.person,
+    gender: subject.gender,
+    number: subject.number,
+    person: subject.person,
+    type: "subject",
   };
 }
 
@@ -222,7 +231,9 @@ function subjectFromNonProperNoun(repo: Repository): Subject {
 
 // personal pronoun (eg. ella)
 function subjectFromPersonalPronoun(repo: Repository): Subject {
-  return randomFrom(repo.pronouns.filter((v) => v.subType === "personal"));
+  return subjecFrom(
+    randomFrom(repo.pronouns.filter((v) => v.subType === "personal"))
+  );
 }
 
 // possessive pronoun, non-proper noun (eg. mi amigo)
@@ -235,6 +246,7 @@ function subjectFromPossesiveNonProperNoun(repo: Repository): Subject {
 
 function randomSubject(repo: Repository): Subject {
   return randomFrom([
+    subjectFromProperNoun,
     subjectFromNonProperNoun,
     subjectFromPersonalPronoun,
     subjectFromPossesiveNonProperNoun,
