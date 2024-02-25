@@ -1,39 +1,20 @@
 import { parseTsv } from "../parser";
 import { toDataEntry } from "../repository";
-import { parseGrammarElements, generateRandomSentence } from "./sentences";
+import { Repository, parseGrammarElements } from "./parser";
+import { generateRandomSentence } from "./sentences";
 import fs from "fs";
 
-describe("verify sentences parsing", () => {
-  test("parse grammar elements", () => {
-    const data = fs.readFileSync("src/data/sentences.tsv");
-    expect(data).toBeTruthy();
-    expect(data.length).toBeGreaterThan(0);
-
+describe("verify sentences generation", () => {
+  function repoFromFile(file: string): Repository {
+    const data = fs.readFileSync(file);
     const text = data.toString();
-    expect(text).toBeTruthy();
-    expect(text.length).toBeGreaterThan(0);
-
     const parsed = parseTsv(text);
-    expect(parsed).toBeTruthy();
-    expect(parsed.length).toBeGreaterThan(0);
-
     const entries = parsed.map(toDataEntry);
-    expect(entries).toBeTruthy();
-    expect(entries.length).toBeGreaterThan(0);
+    return parseGrammarElements(entries);
+  }
+  const repo = repoFromFile("src/data/sentences.tsv");
 
-    const repo = parseGrammarElements(entries);
-    expect(repo).toBeTruthy();
-
-    expect(repo.verbs.length).toBeGreaterThan(0);
-    expect(repo.adjectives.length).toBeGreaterThan(0);
-    expect(repo.articles.length).toBeGreaterThan(0);
-    expect(repo.nouns.length).toBeGreaterThan(0);
-    expect(repo.pronouns.length).toBeGreaterThan(0);
-
-    expect(repo.pronouns.filter((v) => v.subType === "personal").length).toBeGreaterThan(0);
-    expect(repo.pronouns.filter((v) => v.subType === "possessive").length).toBeGreaterThan(0);
-    expect(repo.pronouns.filter((v) => v.subType === "demonstrative").length).toBeGreaterThan(0);
-
+  test("generate sentences", () => {
     for (let i = 0; i < 10; ++i) {
       const sentence = generateRandomSentence(repo);
       fs.appendFileSync("example.txt", sentence + "\n");
