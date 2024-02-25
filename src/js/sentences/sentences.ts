@@ -46,7 +46,7 @@ interface Article extends NumberAndGender {
 interface Adjective extends NumberAndGender {
   type: "adjective";
 }
-type PronounSubTypes = "personal" | "possessive";
+type PronounSubTypes = "personal" | "possessive" | "demonstrative";
 interface Pronoun extends NumberAndGenderAndPerson {
   type: "pronoun";
   subType: PronounSubTypes;
@@ -101,6 +101,8 @@ function parsePronounSubType(entry: DataEntry): PronounSubTypes {
     return "personal";
   } else if (entry.tags.includes("possessive")) {
     return "possessive";
+  } else if (entry.tags.includes("demonstrative")) {
+    return "demonstrative";
   }
   throw new Error("Unable to parse pronoun subtype!");
 }
@@ -244,12 +246,21 @@ function subjectFromPossesiveNonProperNoun(repo: Repository): Subject {
   );
 }
 
+// demonstrative pronoun, non-proper noun (eg. este chico)
+function subjectFromDemonstrativeNonProperNoun(repo: Repository): Subject {
+  return subjectFromNounWithPrefix(
+    repo,
+    repo.pronouns.filter((v) => v.subType === "demonstrative")
+  );
+}
+
 function randomSubject(repo: Repository): Subject {
   return randomFrom([
     subjectFromProperNoun,
     subjectFromNonProperNoun,
     subjectFromPersonalPronoun,
     subjectFromPossesiveNonProperNoun,
+    subjectFromDemonstrativeNonProperNoun,
   ])(repo);
 }
 

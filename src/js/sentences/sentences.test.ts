@@ -30,6 +30,10 @@ describe("verify sentences parsing", () => {
     expect(repo.nouns.length).toBeGreaterThan(0);
     expect(repo.pronouns.length).toBeGreaterThan(0);
 
+    expect(repo.pronouns.filter((v) => v.subType === "personal").length).toBeGreaterThan(0);
+    expect(repo.pronouns.filter((v) => v.subType === "possessive").length).toBeGreaterThan(0);
+    expect(repo.pronouns.filter((v) => v.subType === "demonstrative").length).toBeGreaterThan(0);
+
     for (let i = 0; i < 10; ++i) {
       const sentence = generateRandomSentence(repo);
       fs.appendFileSync("example.txt", sentence + "\n");

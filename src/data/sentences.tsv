@@ -40,6 +40,16 @@ wasi    vuestros  possessive  pronoun  2nd  plural  masculine
 wasze   vuestras  possessive  pronoun  2nd  plural  feminine
 ich     sus       possessive  pronoun  3rd  plural
 
+# demonstrative pronouns
+ten     este     demonstrative  pronoun  3rd  singular  masculine
+ta      esta     demonstrative  pronoun  3rd  singular  feminine
+ci      estos    demonstrative  pronoun  3rd  plural    masculine
+te      estas    demonstrative  pronoun  3rd  plural    feminine
+tamten  ese      demonstrative  pronoun  3rd  singular  masculine
+tamta   esa      demonstrative  pronoun  3rd  singular  feminine
+tamci   esos     demonstrative  pronoun  3rd  plural    masculine
+tamte   esas     demonstrative  pronoun  3rd  plural    feminine    
+
 # verb
 jestem      soy    verb  1st  singular
 jesteś      eres   verb  2nd  singular
@@ -64,6 +74,15 @@ Maria               Maria           noun  singular  masculine   proper
 Karol i Jan         Carlos y Juan   noun  plural    masculine   proper
 Maria i Agnieszka   Maria y Inez    noun  plural    feminine    proper
 Jan i Maria         Juan y Maria    noun  plural    masculine   proper  # mixed groups are masculine
+pies                perro           noun  singular  masculine
+psy                 perros          noun  plural    masculine
+aktorka             actriz          noun  singular  feminine
+aktorki             actrices        noun  plural    feminine
+okulary             gafas           noun  plural    feminine
+ryba                pez             noun  singular  masculine
+ryby                peces           noun  plural    masculine
+sędzia              juez            noun  singular  masculine
+sędziowie           jueces          noun  plural    masculine
 
 # adjectives
 przystojny  guapo       adjective   singular    masculine
@@ -74,3 +93,11 @@ wysoki      alto        adjective   singular    masculine
 wysoka      alta        adjective   singular    feminine
 wysocy      altos       adjective   plural      masculine
 wysokie     altas       adjective   plural      feminine
+szczęśliwy  feliz       adjective   singular    masculine
+szczęśliwa  feliz       adjective   singular    feminine
+szczęśliwi  felices     adjective   plural      masculine
+szczęśliwe  felices     adjective   plural      feminine
+gruby       gordo       adjective   singular    masculine
+gruba       gorda       adjective   singular    feminine
+grubi       gordos      adjective   plural      masculine
+grube       gordas      adjective   plural      feminine
