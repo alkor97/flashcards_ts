@@ -1,7 +1,11 @@
 import { parseTsv } from "../parser";
 import { toDataEntry } from "../repository";
 import { Repository, parseGrammarElements } from "./parser";
-import { generateRandomSentence } from "./sentences";
+import {
+  generateRandomSentence,
+  subjectFromDemonstrativeNonProperNoun,
+  subjecFrom,
+} from "./sentences";
 import fs from "fs";
 
 describe("verify sentences generation", () => {
@@ -19,5 +23,18 @@ describe("verify sentences generation", () => {
       const sentence = generateRandomSentence(repo);
       fs.appendFileSync("example.txt", sentence + "\n");
     }
+  });
+
+  test("generate sentence for subject", () => {
+    const maybeNoun = repo.nouns.find((v) => v.key === "ryba");
+    expect(maybeNoun).toBeTruthy();
+
+    const subject = subjectFromDemonstrativeNonProperNoun(
+      repo,
+      subjecFrom(maybeNoun!)
+    );
+    expect(subject).toBeTruthy();
+    expect(subject.value).toBe("este pez");
+    expect(subject.key).toBe("ta ryba");
   });
 });

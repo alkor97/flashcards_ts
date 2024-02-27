@@ -12,7 +12,7 @@ wy          vosotros  personal  pronoun  2nd  plural    masculine
 wy          vosotras  personal  pronoun  2nd  plural    feminine
 oni         ellos     personal  pronoun  3rd  plural    masculine
 one         ellas     personal  pronoun  3rd  plural    feminine
-państwo     ustedes   personal  pronoun  3rd  plural
+państwo     ustedes   personal  pronoun  3rd  plural    masculine
 
 # possessive pronouns
 mój     mi        possessive  pronoun  1st  singular  masculine
@@ -25,7 +25,7 @@ nasz    nuestro   possessive  pronoun  1st  singular  masculine
 nasza   nuestra   possessive  pronoun  1st  singular  feminine
 wasz    vuestro   possessive  pronoun  2nd  singular  masculine
 wasza   vuestra   possessive  pronoun  2nd  singular  feminine
-ich     su        possessive  pronoun  3rd  singular
+ich     su        possessive  pronoun  3rd  singular  masculine
 
 # plural possessive pronouns
 moi     mis       possessive  pronoun  1st  plural  masculine
@@ -38,7 +38,7 @@ nasi    nuestros  possessive  pronoun  1st  plural  masculine
 nasze   nuestras  possessive  pronoun  1st  plural  feminine
 wasi    vuestros  possessive  pronoun  2nd  plural  masculine
 wasze   vuestras  possessive  pronoun  2nd  plural  feminine
-ich     sus       possessive  pronoun  3rd  plural
+ich     sus       possessive  pronoun  3rd  plural  masculine
 
 # demonstrative pronouns
 ten     este     demonstrative  pronoun  3rd  singular  masculine
@@ -79,8 +79,8 @@ psy                 perros          noun  plural    masculine
 aktorka             actriz          noun  singular  feminine
 aktorki             actrices        noun  plural    feminine
 okulary             gafas           noun  plural    feminine
-ryba                pez             noun  singular  masculine
-ryby                peces           noun  plural    masculine
+ryba                pez             noun  singular  masculine  key-feminine
+ryby                peces           noun  plural    masculine  key-feminine
 sędzia              juez            noun  singular  masculine
 sędziowie           jueces          noun  plural    masculine
 

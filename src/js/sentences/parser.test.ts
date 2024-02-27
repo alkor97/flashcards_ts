@@ -39,5 +39,10 @@ describe("verify sentences parsing", () => {
     expect(
       repo.pronouns.filter((v) => v.subType === "demonstrative").length
     ).toBeGreaterThan(0);
+
+    // verify key gender
+    const maybeNoun = repo.nouns.find((v) => v.key === "ryba");
+    expect(maybeNoun?.gender).toEqual("masculine");
+    expect(maybeNoun?.keyGender).toEqual("feminine");
   });
 });

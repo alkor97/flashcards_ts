@@ -6,7 +6,9 @@ import {
   SubjectMatchable,
 } from "./parser";
 
-function subjecFrom<T extends NumberAndGenderAndPerson>(value: T): Subject {
+export function subjecFrom<T extends NumberAndGenderAndPerson>(
+  value: T
+): Subject {
   return {
     ...value,
     type: "subject",
@@ -22,29 +24,30 @@ function subjectFromProperNoun(repo: Repository): Subject {
 
 function subjectFromNounWithPrefix(
   repo: Repository,
-  prefixes: SubjectMatchable[]
+  prefixes: SubjectMatchable[],
+  maybeSubject?: Subject
 ): Subject {
-  const subject = subjecFrom(
-    randomFrom(repo.nouns.filter((v) => v.subType !== "proper"))
-  );
+  const subject =
+    maybeSubject ??
+    subjecFrom(randomFrom(repo.nouns.filter((v) => v.subType !== "proper")));
+
   const prefix = prefixes.find((v) => v.matches(subject));
-  const [key, value] = [prefix, subject]
-    // skip empty
+  const keyPrefix = prefixes.find((v) => v.keyMatches(subject));
+
+  const key = [keyPrefix, subject]
+    .map((v) => v?.key ?? "")
     .filter((v) => !!v)
-    // extract key and value
-    .map((v) => [v?.key ?? "", v?.value ?? ""])
-    // concat keys and values while skipping empty ones
-    .reduce(
-      ([sumKey, sumValue], [currKey, currValue]) => [
-        sumKey ? `${sumKey} ${currKey}` : currKey,
-        sumValue ? `${sumValue} ${currValue}` : currValue,
-      ],
-      ["", ""]
-    );
+    .join(" ");
+  const value = [prefix, subject]
+    .map((v) => v?.value ?? "")
+    .filter((v) => !!v)
+    .join(" ");
+
   return {
     key: key,
     value: value,
     gender: subject.gender,
+    keyGender: subject.gender,
     number: subject.number,
     person: subject.person,
     type: "subject",
@@ -52,8 +55,11 @@ function subjectFromNounWithPrefix(
 }
 
 // article, non-proper noun (eg. el amigo)
-function subjectFromNonProperNoun(repo: Repository): Subject {
-  return subjectFromNounWithPrefix(repo, repo.articles);
+function subjectFromNonProperNoun(
+  repo: Repository,
+  maybeSubject?: Subject
+): Subject {
+  return subjectFromNounWithPrefix(repo, repo.articles, maybeSubject);
 }
 
 // personal pronoun (eg. ella)
@@ -64,18 +70,26 @@ function subjectFromPersonalPronoun(repo: Repository): Subject {
 }
 
 // possessive pronoun, non-proper noun (eg. mi amigo)
-function subjectFromPossesiveNonProperNoun(repo: Repository): Subject {
+function subjectFromPossesiveNonProperNoun(
+  repo: Repository,
+  maybeSubject?: Subject
+): Subject {
   return subjectFromNounWithPrefix(
     repo,
-    repo.pronouns.filter((v) => v.subType === "possessive")
+    repo.pronouns.filter((v) => v.subType === "possessive"),
+    maybeSubject
   );
 }
 
 // demonstrative pronoun, non-proper noun (eg. este chico)
-function subjectFromDemonstrativeNonProperNoun(repo: Repository): Subject {
+export function subjectFromDemonstrativeNonProperNoun(
+  repo: Repository,
+  maybeSubject?: Subject
+): Subject {
   return subjectFromNounWithPrefix(
     repo,
-    repo.pronouns.filter((v) => v.subType === "demonstrative")
+    repo.pronouns.filter((v) => v.subType === "demonstrative"),
+    maybeSubject
   );
 }
 
@@ -89,8 +103,10 @@ function randomSubject(repo: Repository): Subject {
   ])(repo);
 }
 
-export function generateRandomSentence(repo: Repository): string {
-  const subject = randomSubject(repo);
+export function generateRandomSentenceForSubject(
+  repo: Repository,
+  subject: Subject
+): string {
   const predicate = randomFrom(repo.verbs.filter((v) => v.matches(subject)));
   const modifier = randomFrom(
     repo.adjectives.filter((a) => a.matches(subject))
@@ -104,4 +120,9 @@ export function generateRandomSentence(repo: Repository): string {
     .filter((v) => !!v)
     .join(" ");
   return `${source} / ${target}`;
+}
+
+export function generateRandomSentence(repo: Repository): string {
+  const subject = randomSubject(repo);
+  return generateRandomSentenceForSubject(repo, subject);
 }

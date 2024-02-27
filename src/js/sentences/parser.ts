@@ -13,6 +13,7 @@ interface GNumber {
 type GGenderType = "masculine" | "feminine" | undefined;
 interface GGender {
   gender: GGenderType;
+  keyGender: GGenderType;
 }
 
 interface Base {
@@ -25,6 +26,7 @@ export interface Subject extends Base, GNumber, GPerson, GGender {
 }
 export interface SubjectMatchable extends Base {
   matches: (subject: Subject) => boolean;
+  keyMatches: (Subject: Subject) => boolean;
 }
 
 interface Verb extends Base, GNumber, GPerson, SubjectMatchable {
@@ -80,15 +82,31 @@ function parseGender(entry: DataEntry): GGenderType {
   return undefined;
 }
 
+function parseKeyGender(entry: DataEntry): GGenderType {
+  if (entry.tags.includes("key-masculine")) {
+    return "masculine";
+  } else if (entry.tags.includes("key-feminine")) {
+    return "feminine";
+  }
+  return parseGender(entry);
+}
+
 function parsePersonAndGender(entry: DataEntry): NumberAndGender {
   return {
     key: entry.key,
     value: entry.value,
     gender: parseGender(entry),
+    keyGender: parseKeyGender(entry),
     number: parseNumber(entry),
     matches(subject) {
       return (
         (!subject.gender || this.gender === subject.gender) &&
+        this.number === subject.number
+      );
+    },
+    keyMatches(subject) {
+      return (
+        (!subject.keyGender || this.keyGender === subject.keyGender) &&
         this.number === subject.number
       );
     },
@@ -136,6 +154,9 @@ export function parseGrammarElements(entries: DataEntry[]): Repository {
               this.number === subject.number && this.person === subject.person
             );
           },
+          keyMatches(subject) {
+            return this.matches(subject);
+          },
         });
       } else if (entry.tags.includes("adjective")) {
         repo.adjectives.push({
@@ -163,10 +184,18 @@ export function parseGrammarElements(entries: DataEntry[]): Repository {
           subType: parsePronounSubType(entry),
           person: parsePerson(entry),
           gender: parseGender(entry),
+          keyGender: parseKeyGender(entry),
           number: parseNumber(entry),
           matches(subject) {
             return (
               (!subject.gender || this.gender === subject.gender) &&
+              this.person === subject.person &&
+              this.number === subject.number
+            );
+          },
+          keyMatches(subject) {
+            return (
+              (!subject.keyGender || this.keyGender === subject.keyGender) &&
               this.person === subject.person &&
               this.number === subject.number
             );
