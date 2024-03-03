@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Słownik</title>
+    <script defer type="module" src="js/dictionary.ts"></script>
+    <style>
+      .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 8;
+      }
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      html {
+        overflow: scroll;
+      }
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+      ::placeholder {
+        color: #00bbf0;
+      }
+      body {
+        font-size: x-large;
+      }
+      input[type="text"] {
+        width: 100%;
+        background-color: #005792;
+        color: #fdb44b;
+        font-size: x-large;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="use-width">
+      <input class="sticky" type="text" placeholder="zacznij pisać..." />
+      <div class="grid-container"></div>
+    </div>
+  </body>
+</html>
