@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Test wyboru</title>
     <script defer type="module" src="js/multiple-answers.ts"></script>
+    <style>
+      .query,
+      .answer {
+        width: 100%;
+      }
+      .invalid:active {
+        background-color: crimson;
+        transition: 0s;
+      }
+      .valid:active {
+        background-color: darkgreen;
+        transition: 0s;
+      }
+    </style>
   </head>
   <body>
     <progress value="0" max="100" class="use-width"></progress>
