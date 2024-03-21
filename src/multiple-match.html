@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Dopasuj wiele</title>
+    <script defer type="module" src="js/multiple-match.ts"></script>
+    <style>
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 8px;
+      }
+      /* span 1st child (progress bar) to full width */
+      .grid-container :first-child {
+        grid-column: 1 / -1;
+      }
+      .content {
+        white-space: pre;
+        padding: 8px;
+      }
+      [state="normal"] {
+        background-color: #00204a;
+        transition: background-color 1s;
+      }
+      [state="selected"] {
+        background-color: #005792;
+      }
+      [state="wrong"] {
+        background-color: crimson;
+      }
+      [state="valid"] {
+        background-color: darkgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="use-width">
+      <div class="grid-container">
+        <progress value="0" max="100" class="use-width"></progress>
+        <div class="left"></div>
+        <div class="right"></div>
+      </div>
+      <dialog>Świetna robota!</dialog>
+    </div>
+  </body>
+</html>

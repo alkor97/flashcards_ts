@@ -4,8 +4,12 @@ export function randomInt(max: number): number {
 
 export function shuffle(array: any[]): any[] {
   for (let i = array.length - 1; i > 0; i--) {
-    const j = randomInt(i + 1);
+    const j = randomInt(i);
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+export function randomFrom<T>(array: T[]): T {
+  return array[randomInt(array.length)];
 }
