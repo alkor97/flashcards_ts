@@ -63,7 +63,6 @@ describe("multiple answers generator tests", () => {
       ["bank", "el bancococo"],
       ["kot", "el gato"],
     ].map(toDataEntry);
-    const generator = selectMultipleAnswers(3, data);
 
     const queries: string[] = [];
     for (let it of selectMultipleAnswers(3, data)) {

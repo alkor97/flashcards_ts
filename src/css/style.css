@@ -46,21 +46,6 @@ input[type="checkbox"] {
   accent-color: #005792;
 }
 
-.query,
-.answer {
-  width: 100%;
-}
-
-.invalid:active {
-  background-color: crimson;
-  transition: 0s;
-}
-
-.valid:active {
-  background-color: darkgreen;
-  transition: 0s;
-}
-
 ::backdrop {
   opacity: 0.75;
 }
