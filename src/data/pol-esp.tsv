@@ -137,39 +137,12 @@ wyrażenie   la frase
 ulica       la calle
 drzwi       la puerta
 zupa        la sopa
-ten chłopak     este chico          zaimki wskazujące
-ta dziewczyna   esta chica
-ci chłopcy      estos chicos
-te dziewczyny   estas chicas
-ten chłopak (2)    ese chico
-ta dziewczyna (2)  esa chica
-ci chłopcy (2)     esos chicos
-te dziewczyny (2)  esas chicas
-tamten chłopak      aquel chico
-tamta dziewczyna    aquella chica
-tamci chłopcy       aquellos chicos
-tamte dziewczyny    aquellas chicas
-mój kot         mi gato             zaimki dzierżawcze
-moja krowa      mi vaca
-twój kot        tu gato
-twoja krowa     tu vaca
-jego kot        su gato
-jej krowa       su vaca
-nasz kot        nuestro gato
-nasza krowa     nuestra vaca
-wasz kot        vuestro gato
-wasza krowa     vuestra vaca
-ich kot         su gato
 brat        el hermano
 siostra     la hermana
 ubezpieczenie   el seguro
 impreza     la fiesta
 wino        el vino
 decyzja     la decisión
-moi przyjaciele     mis amigos
-moje przyjaciółki   mis amigas
-twoi przyjaciele    tus amigos
-twoje przyjaciółki  tus amigas
 puchar      la copa
 wuj         el tio
 ciotka      la tia
@@ -209,6 +182,33 @@ szafa       el armario
 telewizja   la tele
 skarb       el tesoro
 stół        la mesa
+ten chłopak     este chico          zaimki wskazujące
+ta dziewczyna   esta chica
+ci chłopcy      estos chicos
+te dziewczyny   estas chicas
+ten chłopak (2)    ese chico
+ta dziewczyna (2)  esa chica
+ci chłopcy (2)     esos chicos
+te dziewczyny (2)  esas chicas
+tamten chłopak      aquel chico
+tamta dziewczyna    aquella chica
+tamci chłopcy       aquellos chicos
+tamte dziewczyny    aquellas chicas
+mój kot         mi gato             zaimki dzierżawcze
+moja krowa      mi vaca
+twój kot        tu gato
+twoja krowa     tu vaca
+jego kot        su gato
+jej krowa       su vaca
+nasz kot        nuestro gato
+nasza krowa     nuestra vaca
+wasz kot        vuestro gato
+wasza krowa     vuestra vaca
+ich kot         su gato
+moi przyjaciele     mis amigos
+moje przyjaciółki   mis amigas
+twoi przyjaciele    tus amigos
+twoje przyjaciółki  tus amigas
 otwarty     abierto             przymiotniki
 nudny       aburrido
 aktywny     activo
@@ -329,15 +329,22 @@ dalej       más
 tutaj       aquí
 tam         alli
 dzisiaj     hoy
+jutro       mañana
+pojutrze    pasado mañana
+wczoraj     ayer
+przedwczoraj    anteayer
 wszystko    todo
 blisko      cerca
+daleko      lejos
 w dobrym humorze   de buen humor
 w złym humorze     de mal humor
 bardzo      muy
 w           en                  przyimki
 z           de
 bo          porque
-gdzie       dóndez 
+gdzie       dóndez
+ale         pero
+przy        por
 być dobrym          ser bueno       ser czy estar?
 być pysznym         estar bueno
 być atrakcyjnym     estar bueno
@@ -347,7 +354,7 @@ być zadufanym w sobie   ser orgulloso
 być dumnym z         estar orgulloso de
 być bystrym         ser listo
 być gotowym         estar listo
-być dumnym          ser aburrido
+być nudnym          ser aburrido
 być znudzonym       estar aburrido
 być otwartym        ser abierto
 być otwartym (dosłownie)    estar abierto
