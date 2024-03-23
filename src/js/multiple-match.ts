@@ -135,7 +135,12 @@ class Model {
   }
 }
 
-type ViewElementState = "normal" | "selected" | "wrong" | "valid";
+function toMillis(text: string): number {
+  const multiplier = text.endsWith("ms") ? 1 : 1000;
+  return parseFloat(text) * multiplier;
+}
+
+type ViewElementState = "normal" | "selected" | "wrong" | "valid" | "collapsed";
 
 class ViewElement {
   public readonly view = document.createElement("div");
@@ -150,6 +155,9 @@ class ViewElement {
   }
   public addClickHandler(handler: () => void) {
     this.view.addEventListener("click", handler);
+  }
+  public get transitionDuration(): number {
+    return toMillis(getComputedStyle(this.view).transitionDuration);
   }
 }
 
@@ -170,6 +178,9 @@ class ViewColumn {
   }
   public setContent(index: number, content: string) {
     this.byIndex(index).content = content;
+  }
+  public getTransitionDuration(index: number): number {
+    return this.byIndex(index).transitionDuration;
   }
   private byIndex(index: number): ViewElement {
     return this.elements[index];
@@ -211,6 +222,10 @@ class View {
     this.byColumn(column).setContent(index, content);
   }
 
+  public getTransitionDuration(column: Column, index: number): number {
+    return this.byColumn(column).getTransitionDuration(index);
+  }
+
   private byColumn(column: Column): ViewColumn {
     return column === Column.LEFT ? this.left : this.right;
   }
@@ -232,8 +247,8 @@ class View {
   }
 }
 
-function runLater(callback: () => void, delay?: number) {
-  setTimeout(callback, delay);
+function sleep(millis?: number) {
+  return new Promise((resolve) => setTimeout(resolve, millis));
 }
 
 class ViewModel {
@@ -243,11 +258,13 @@ class ViewModel {
     private view: View,
     private data: Iterator<DataEntry>
   ) {
-    view.clickHandler = (column: Column, index: number) => {
+    view.clickHandler = async (column: Column, index: number) => {
       if (this.inTransition) {
         // block selections during transition period
         return;
       }
+      // start transition period
+      this.inTransition = true;
 
       // report selection to the model
       model.select(column, index).forEach((s) => {
@@ -264,34 +281,36 @@ class ViewModel {
         model.resetSelection(leftIndex, rightIndex);
 
         // reflect match state in view
-        const state: ViewElementState = valid ? "valid" : "wrong";
+        let state: ViewElementState = valid ? "valid" : "wrong";
+        view.setState(Column.LEFT, leftIndex, state);
+        view.setState(Column.RIGHT, rightIndex, state);
+        await sleep();
+
+        // reset view to normal state
+        state = valid ? "collapsed" : "normal";
         view.setState(Column.LEFT, leftIndex, state);
         view.setState(Column.RIGHT, rightIndex, state);
 
-        // start transition period
-        this.inTransition = valid;
-        runLater(() => {
-          // reset view to normal state
-          view.setState(Column.LEFT, leftIndex, "normal");
-          view.setState(Column.RIGHT, rightIndex, "normal");
+        await sleep(view.getTransitionDuration(Column.LEFT, leftIndex));
+        if (valid) {
+          model.markEmpty(leftIndex, rightIndex);
+          model.removeEmpty();
+          state = "normal";
+          view.setState(Column.LEFT, leftIndex, state);
+          view.setState(Column.RIGHT, rightIndex, state);
 
-          runLater(() => {
-            if (valid) {
-              model.markEmpty(leftIndex, rightIndex);
-              model.removeEmpty();
-
-              // reflect model in view
-              this.fillRows(column);
-            }
-            // end transition period
-            this.inTransition = false;
-          }, 1000);
-        });
+          // reflect model in view
+          this.fillRows(column);
+        }
       }
+      // end transition period
+      this.inTransition = false;
     };
 
     // reflect model in view
+    this.inTransition = true;
     this.fillRows();
+    this.inTransition = false;
   }
 
   private fillRows(shuffleColumn?: Column) {
@@ -308,11 +327,11 @@ class ViewModel {
     this.view.setProgress(this.model.presented, this.model.total);
 
     if (!this.model.length) {
-      runLater(
-        () => (window.location.href = `index.html${window.location.search}`),
-        1000
-      );
-      document.querySelector("dialog")?.showModal();
+      (async () => {
+        await sleep(1000);
+        window.location.href = `index.html${window.location.search}`;
+        document.querySelector("dialog")?.showModal();
+      })();
       return;
     }
 
