@@ -20,11 +20,12 @@
       .content {
         white-space: pre;
         padding: 8px;
-        max-height: 10%; /* used to squish cell vertically in transition */
+        max-height: 100px; /* used to squish cell vertically in transition */
       }
       [state="normal"] {
         background-color: #00204a;
         transition: background-color 0.8s;
+        overflow-y: visible;
       }
       [state="selected"] {
         background-color: #005792;

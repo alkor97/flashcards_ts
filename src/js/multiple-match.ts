@@ -36,7 +36,7 @@ class Model {
   public readonly left: Element[] = [];
   public readonly right: Element[] = [];
   private generator = 0;
-  private added = 0;
+  private matchedPairs = 0;
 
   constructor(public readonly total: number) {}
 
@@ -45,7 +45,6 @@ class Model {
     toElements(entry, () => this.generator++).forEach((value, index) =>
       columns[index].push(value)
     );
-    this.added++;
   }
 
   public select(column: Column, index: number) {
@@ -86,11 +85,13 @@ class Model {
     if (leftSelectedIndex >= 0) {
       const rightSelectedIndex = this.right.findIndex((e) => e.selected);
       if (rightSelectedIndex >= 0) {
-        return [
-          leftSelectedIndex,
-          rightSelectedIndex,
-          this.left[leftSelectedIndex].matches(this.right[rightSelectedIndex]),
-        ];
+        const matched = this.left[leftSelectedIndex].matches(
+          this.right[rightSelectedIndex]
+        );
+        if (matched) {
+          this.matchedPairs++;
+        }
+        return [leftSelectedIndex, rightSelectedIndex, matched];
       }
     }
     return undefined;
@@ -123,15 +124,8 @@ class Model {
     return Math.min(this.left.length, this.right.length);
   }
 
-  public get nonEmptyLength() {
-    return Math.max(
-      this.left.filter((e) => !e.empty).length,
-      this.right.filter((e) => !e.empty).length
-    );
-  }
-
-  public get presented() {
-    return this.added;
+  public get matched() {
+    return this.matchedPairs;
   }
 }
 
@@ -295,12 +289,15 @@ class ViewModel {
         if (valid) {
           model.markEmpty(leftIndex, rightIndex);
           model.removeEmpty();
-          state = "normal";
-          view.setState(Column.LEFT, leftIndex, state);
-          view.setState(Column.RIGHT, rightIndex, state);
+
+          if (model.length > 0) {
+            // do not set normal state if the model is empty to prevent showing last matched pair
+            view.setState(Column.LEFT, leftIndex, "normal");
+            view.setState(Column.RIGHT, rightIndex, "normal");
+          }
 
           // reflect model in view
-          this.fillRows(column);
+          this.fillRows(column, false /* shuffle only if needed */);
         }
       }
       // end transition period
@@ -313,7 +310,7 @@ class ViewModel {
     this.inTransition = false;
   }
 
-  private fillRows(shuffleColumn?: Column) {
+  private fillRows(shuffleColumn?: Column, forceShuffle = true) {
     // fill model with required amount of data entries
     while (this.model.length < this.view.length) {
       const result = this.data.next();
@@ -323,14 +320,17 @@ class ViewModel {
         break;
       }
     }
-    this.model.shuffleColumn(shuffleColumn);
-    this.view.setProgress(this.model.presented, this.model.total);
+    if (forceShuffle || this.model.length >= this.view.length) {
+      // no need to shuffle if there is less entries to be shown than number of slots
+      this.model.shuffleColumn(shuffleColumn);
+    }
+    this.view.setProgress(this.model.matched, this.model.total);
 
     if (!this.model.length) {
       (async () => {
+        document.querySelector("dialog")?.showModal();
         await sleep(1000);
         window.location.href = `index.html${window.location.search}`;
-        document.querySelector("dialog")?.showModal();
       })();
       return;
     }
