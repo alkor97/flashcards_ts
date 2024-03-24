@@ -1,4 +1,4 @@
-import { simplifyForSearch } from "./dictionary";
+import { simplifyForSearch } from ".";
 
 describe("dictionary", () => {
   test("Polish diacritics", () => {

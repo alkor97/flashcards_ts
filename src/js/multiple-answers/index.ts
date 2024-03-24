@@ -1,9 +1,9 @@
-import { toDataEntry, withTagsIncrementally } from "./repository";
+import { toDataEntry, withTagsIncrementally } from "../parsing/repository";
 import {
   selectMultipleAnswers,
   MultipleAnswersSelection,
 } from "./select-multiple-answers";
-import { parseTsv } from "./parser";
+import { parseTsv } from "../parsing/parser";
 
 function setProgress(value: number, max: number) {
   const progress = document.querySelector("progress");

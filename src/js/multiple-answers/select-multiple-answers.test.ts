@@ -1,4 +1,4 @@
-import { toDataEntry } from "./repository";
+import { toDataEntry } from "../parsing/repository";
 import { selectMultipleAnswers } from "./select-multiple-answers";
 
 describe("multiple answers generator tests", () => {

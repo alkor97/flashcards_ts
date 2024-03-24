@@ -1,6 +1,6 @@
-import { DataEntry, toDataEntry, withTagsIncrementally } from "./repository";
-import { shuffle, randomFrom } from "./random";
-import { parseTsv } from "./parser";
+import { DataEntry, toDataEntry, withTagsIncrementally } from "../parsing/repository";
+import { shuffle, randomFrom } from "../utils/random";
+import { parseTsv } from "../parsing/parser";
 
 class Element {
   constructor(

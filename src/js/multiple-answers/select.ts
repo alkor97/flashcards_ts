@@ -1,5 +1,5 @@
-import { DataEntry } from "./repository";
-import { randomInt } from "./random";
+import { DataEntry } from "../parsing/repository";
+import { randomInt } from "../utils/random";
 
 export interface Statistics {
   total: number;

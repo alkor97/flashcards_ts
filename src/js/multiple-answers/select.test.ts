@@ -1,5 +1,5 @@
 import { selectFrom } from "./select";
-import { toDataEntry } from "./repository";
+import { toDataEntry } from "../parsing/repository";
 
 describe("data view generator tests", () => {
   test("test generator with for-of statement", () => {

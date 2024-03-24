@@ -1,5 +1,5 @@
-import { parseTsv } from "./parser";
-import { DataEntry, toDataEntry } from "./repository";
+import { parseTsv } from "../parsing/parser";
+import { DataEntry, toDataEntry } from "../parsing/repository";
 
 interface DictionaryEntry {
   key: string;

@@ -1,5 +1,5 @@
-import { parseTsv } from "./parser";
-import { toDataEntry } from "./repository";
+import { parseTsv } from "./parsing/parser";
+import { toDataEntry } from "./parsing/repository";
 
 (async () => {
   const result = await fetch("./pol-esp.tsv");

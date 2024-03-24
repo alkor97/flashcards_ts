@@ -1,7 +1,7 @@
 import { Statistics, Selection, selectFrom, IndexSelector } from "./select";
-import { DataEntry } from "./repository";
+import { DataEntry } from "../parsing/repository";
 import { distance } from "./comparators";
-import { shuffle } from "./random";
+import { shuffle } from "../utils/random";
 
 export interface MultipleAnswersSelection {
   readonly query: string | null;
