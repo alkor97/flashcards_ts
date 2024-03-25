@@ -1,0 +1,9 @@
+:root {
+  --color1: #00204a;
+  --color2: #005792;
+  --color3: #00bbf0;
+  --color4: #fdb44b;
+
+  --color-valid: darkgreen;
+  --color-wrong: crimson;
+}

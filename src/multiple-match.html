@@ -23,18 +23,18 @@
         max-height: 2em; /* used to squish cell vertically in transition */
       }
       [state="normal"] {
-        background-color: #00204a;
+        background-color: var(--color1);
         transition: background-color 0.8s;
         overflow-y: visible;
       }
       [state="selected"] {
-        background-color: #005792;
+        background-color: var(--color2);
       }
       [state="wrong"] {
-        background-color: crimson;
+        background-color: var(--color-wrong);
       }
       [state="valid"] {
-        background-color: darkgreen;
+        background-color: var(--color-valid);
       }
       [state="collapsed"] {
         overflow-y: hidden;
